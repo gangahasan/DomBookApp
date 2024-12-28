@@ -3,9 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="./styles/index.css">
+    <title>Home Page</title>
 </head>
 <body>
-    
+    <div id="navbar">   
+    </div>
+    <form id="Aform">
+        <h3>Admin Login</h3>
+        <input id="Aemail" type="text" name="Aemail" placeholder="Enter your email address" required />
+         <input id="Apassword" type="password" name="Apassword" placeholder="Enter your password" required />
+         <input id="Asubmit"type="submit" value="Admin Login"/>
+    </form>
+    <form id="Uform">
+        <h3>user Login</h3>
+        <input id="Uemail" type="text" name="Uemail"placeholder="Enter your email address" required />
+         <input id="Upassword" type="password" name="Upassword" placeholder="Enter your password" required />
+         <input id="Usubmit" type="submit" value="User Login"/>
+    </form>
 </body>
+<script src="./scripts/navbar.js"></script>
+<script src="./scripts/index.js"></script>
 </html>
