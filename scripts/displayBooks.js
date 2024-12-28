@@ -1,5 +1,5 @@
 import { baseUrl } from "./baseUrl.js";
-export function displayBooks(data, isverified,isdelete){
+export function displayBooks(data, isverified,isdelete,isBarrow){
     let cont = document.getElementById('books');
     cont.innerHTML = '';
 
@@ -17,29 +17,37 @@ export function displayBooks(data, isverified,isdelete){
         title.textContent = `Title: ${el.title}`;
         author.textContent = `Author: ${el.title}`;
         category.textContent = `Category: ${el.title}`;
-        isVerified.textContent =  "isVerified: false";
-        isAvailable.textContent = "isAvailable: true ";
-        borrowedDays.textContent = "BorrowDays : null";
 
-        div.append(title,author,category,isAvailable,borrowedDays);
+        if(isverified == true){
+            isVerified.textContent = "isVerified : verified ";
+        }
+        else{
+            isVerified.textContent = "isVerified : not verified ";
+        }
+        // isVerified.textContent =  `isVerified: ${el.isVerified}`;
+        isAvailable.textContent = `isAvailable: ${el.isAvailable}`;
+        borrowedDays.textContent = `borrowedDays: ${el.borrowedDays}`;
+
+        div.append(title,author,category,isAvailable,isVerified,borrowedDays);
 
         if(isverified == true) {
             let verifyBtn = document.createElement('button');
             verifyBtn.textContent = "Verify Button"
             verifyBtn.addEventListener('click', function() {
-                alert("Are you sure to Verify..?");
+                prompt("Are you sure to Verify..?");
                 fetch(`${baseUrl}/books/${el.id}`,{
                         method: "PATCH",
                         headers: {
                             'Content-Type': 'application/json'
                         },
-                        body: JSON.stringify(isVerified = false)
+                        body: JSON.stringify(isVerified != isVerified)
                     }).then(()=>{
                         alert("Book verified successfully!");
                         button.disabled = true;
                         displayBooks(data, isverified,isdelete);
+
                     }).catch((err)=>{
-                        console.error(err);
+                        console.log(err);
                         alert("Failed to verified. Please try again later.");
                     })
             });
@@ -50,7 +58,7 @@ export function displayBooks(data, isverified,isdelete){
             let deleteBtn = document.createElement('button');
             deleteBtn.textContent = "Delete Button";
             deleteBtn.addEventListener('click', function() {
-                alert("Are you sure to Delete..?");
+                prompt("Are you sure to Delete..?");
                 fetch(`${baseUrl}/books/${el.id}`,{
                         method: "DELETE"
                     }).then(()=>{
@@ -62,6 +70,27 @@ export function displayBooks(data, isverified,isdelete){
                     })
             });
             div.append(deleteBtn);
+        }
+        if(isBarrow == true) {
+            let borrowBtn = document.createElement('button');
+            borrowBtn.textContent = "Borrow Button";
+            borrowBtn.addEventListener('click', function() {
+                prompt("Are you sure to Borrow..?");
+                fetch(`${baseUrl}/books/${el.id}`,{
+                        method: "PATCH",
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({isAvailable: false})
+                    }).then(()=>{
+                        alert("Book borrowed successfully!");
+                        displayBooks(data, isverified,isdelete);
+                    }).catch((err)=>{
+                        console.error(err);
+                        alert("Failed to borrow book. Please try again later.");
+                    })
+            });
+            div.append(borrowBtn);
         }
         cont.append(div);
 
