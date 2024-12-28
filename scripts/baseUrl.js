@@ -1,1 +1,2 @@
-export const baseUrl = "https://adventurous-coconut-bactrosaurus.glitch.me/";
+
+export const baseUrl = "https://adventurous-coconut-bactrosaurus.glitch.me";

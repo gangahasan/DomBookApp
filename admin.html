@@ -3,13 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/admin.css">
     <title>Admin Page</title>
 </head>
 <body>
     <div id="navbar">
-        
     </div>
+    <form id="form">
+        <h2>Add New Book </h2>
+        <label for="title">Title:</label>
+        <input type="text" id="name" name="name" required />
+
+        <label for="author">Author:</label>
+        <input type="text" id="author" name="author" required />
+
+        <label for="category">Category</label>
+        <select id="category" name="category" required>
+            <option value="">Select a category</option>
+            <option value="fiction">Fiction</option>
+            <option value="comedy">Comedy</option>
+            <option value="technical">Technical</option>
+            <!-- Categories will be dynamically populated here -->
+        </select>
+        <input id="submit"type="submit" value="Add new" />
+    </form>
+    <div id="books"></div>
 </body>
 <script src="./scripts/navbar.js"></script>
-<script src="./index.js"></script>
+<script src="./scripts/admin.js" type="module"></script>
 </html>
